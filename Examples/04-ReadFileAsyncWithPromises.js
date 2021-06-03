@@ -1,5 +1,4 @@
-const { readFile, writeFile } = require("fs");
-const util = require("util");
+const { readFile, writeFile } = require("fs").promises;
 
 // -------------------------------------------------- VARIANT 1, WITH CALLBACK
 /* readFile("./Text.txt", "utf8", (err, result) => {
@@ -52,7 +51,8 @@ const start = async () => {
 start(); */
 
 // -------------------------------------------------- VARIANT 4, WITH PROMISIFIED FUNCTIONS
-const readFilePromise = util.promisify(readFile);
+/* const util = require("util");
+ const readFilePromise = util.promisify(readFile);
 const writeFilePromise = util.promisify(writeFile);
 
 const start = async () => {
@@ -65,6 +65,26 @@ const start = async () => {
     );
 
     const third = await readFilePromise("./MergeText.txt", "utf8");
+    console.log(third);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+start(); */
+
+// -------------------------------------------------- VARIANT 5, WITH PROMISIFIED FUNCTIONS CHANGED IMPORT
+const start = async () => {
+  try {
+    const first = await readFile("./Text.txt", "utf8"); // this is a promise, check the import
+    const second = await readFile("./Text2.txt", "utf8"); // this is a promise, check the import
+    await writeFile(
+      // this is a promise, check the import
+      "./MergeText.txt",
+      `This is the new text: ${first} ${second}`
+    );
+
+    const third = await readFile("./MergeText.txt", "utf8"); // this is a promise, check the import
     console.log(third);
   } catch (err) {
     console.log(err);
