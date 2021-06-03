@@ -13,7 +13,7 @@ readFile("./Text.txt", "utf8", (err, result) => {
   console.log("Completed first task!");
 });
 
-readFile("./Examples/Text2.txt", "utf8", (err, result) => {
+readFile("./Text2.txt", "utf8", (err, result) => {
   if (err) {
     console.log(err);
     return;
