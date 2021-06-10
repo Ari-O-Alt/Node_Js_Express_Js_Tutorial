@@ -1,1 +1,1 @@
-This is the new text: async 1 ---- > This is just some text. async 2 ---- > This is just some text in a nested file.
+Here is the result : async 1 ---- > This is just some text., async 2 ---- > This is just some text in a nested file.
