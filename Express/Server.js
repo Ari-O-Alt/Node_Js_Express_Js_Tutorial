@@ -13,13 +13,42 @@ const http = require("http");
 // we specify on which port to listen for requests
 server.listen(3000); */
 
-// -------------------------------------------  ADDING MORE DETAILS ABOUT THE RESPONSE WE SEND BACK TO THE BROWSER
+// -------------------------------------------  ADDING MORE DETAILS TO THE RESPONSE WE SEND BACK TO THE BROWSER
 // this can be done using more methods
-
-const server = http.createServer((request, response) => {
+/* const server = http.createServer((request, response) => {
   response.writeHead(200, { "content-type": "text/html" }); // we provide meta data about our response - this is the HEADER of the response
   response.write("Hello, this is some text!"); // we can use this method - write - to add the response's body
   response.end(); // we end the communication with the server
+});
+
+server.listen(3000); */
+
+// -------------------------------------------  ADDING MORE DETAILS TO THE REQUEST WE WE SEND BACK TO THE BROWSER
+
+const server = http.createServer((request, response) => {
+  // console.log(request.method);
+  //console.log(request.url);
+
+  const requestedUrl = request.url; // we get the url the user requests
+
+  if (requestedUrl === "/") {
+    // if the urls is "/", we return the home page
+    response.writeHead(200, { "content-type": "text/html" });
+    response.write("<h1>Hello, this is the HOME page!</h1>");
+    response.end();
+  } else if (requestedUrl === "/about") {
+    // if the urls is "/about", we return the about page
+    response.writeHead(200, { "content-type": "text/html" });
+    response.write("<h1>Hello, this is the ABOUT page!</h1>");
+    response.end();
+  } else {
+    // if the urls is anything else, we return an error message
+    response.writeHead(404, { "content-type": "text/html" });
+    response.write(
+      "<h1>We are sorry, the page you are looking for doesn't exist!</h1>"
+    );
+    response.end();
+  }
 });
 
 server.listen(3000);
