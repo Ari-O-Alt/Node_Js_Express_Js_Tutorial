@@ -2,8 +2,10 @@ const express = require("express"); // import the module
 const app = express(); // invoke it
 const path = require("path"); // module used for working with paths
 
-// we created a folder called public which will contain all out static files - i copied not cut them so the old examples still work
-app.use(express.static("./public"));
+// we created a folder called public which will contain all out static files - I copied not cut them so the old examples still work
+// it makes all the resources needed in index.html available, without needing to specify them one by one
+// IMPORTANT: we can also move the index.html in the same file and remove the app.get method below
+app.use(express.static("./Express/public"));
 
 app.get("/", (request, response) => {
   response
