@@ -1,9 +1,11 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
-const { products } = require("./Data.js");
 
 app.get("/", (request, response) => {
-  response.json(products);
+  response.send("<h1>Hello world!</h1>");
 });
 
-app.listen(3000, () => console.log("The server is listening to port 3000..."));
+app.listen(3000, () => {
+  console.log("The server is listening to port 3000...");
+});
