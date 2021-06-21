@@ -17,12 +17,29 @@ app.get("/api/products", (request, response) => {
   response.json(newProducts);
 });
 
-// display the products with ID 1
-app.get("/api/products/1", (request, response) => {
+// display the products with ID 1 - this is ineffective if we have many products so we'll use Express routing
+/* app.get("/api/products/1", (request, response) => {
   const singleProducts = products.find((product) => {
     return product.id === 1;
   });
   response.json(singleProducts);
+}); */
+
+app.get("/api/products/:productId", (request, response) => {
+  console.log(request);
+  console.log(request.params);
+  const { productId } = request.params;
+  const singleProduct = products.find((product) => {
+    return product.id === Number(productId);
+  });
+
+  if (!singleProduct) {
+    response
+      .status(404)
+      .send("<h1>The page you are looking for can't be found!");
+  }
+
+  response.json(singleProduct);
 });
 
 app.listen(3000, () => {
