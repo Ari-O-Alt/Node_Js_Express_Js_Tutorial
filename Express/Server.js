@@ -28,11 +28,13 @@ app.get("/api/products", (request, response) => {
 app.get("/api/products/:productId", (request, response) => {
   console.log(request);
   console.log(request.params);
-  const { productId } = request.params;
+  const { productId } = request.params; // we deconstruct the productId on the params
   const singleProduct = products.find((product) => {
+    // if there's a product with the deconstructed product id, we send it back to the user
     return product.id === Number(productId);
   });
 
+  // if no single product is found, send a 404 response
   if (!singleProduct) {
     response
       .status(404)
@@ -40,6 +42,11 @@ app.get("/api/products/:productId", (request, response) => {
   }
 
   response.json(singleProduct);
+});
+
+app.get("/api/products/:productId/reviews/:reviewId", (request, response) => {
+  console.log(request.params);
+  response.send("Just a placeholder!");
 });
 
 app.listen(3000, () => {
