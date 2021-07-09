@@ -44,11 +44,13 @@ app.get("/api/products/:productId", (request, response) => {
   response.json(singleProduct);
 });
 
+// Trying to access an URL with two dynamic params
+// No matter the value of the dynamic params, we send the same reponse back
 app.get("/api/products/:productId/reviews/:reviewId", (request, response) => {
   console.log(request.params);
   response.send("Just a placeholder!");
 });
 
-app.listen(3000, () => {
+app.app.listen(3000, () => {
   console.log("The server is listening to port 3000...");
 });
