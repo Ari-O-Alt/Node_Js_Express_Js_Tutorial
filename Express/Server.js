@@ -1,32 +1,38 @@
 // EXPRESS MIDDLEWARE
-
 const express = require("express");
 const app = express();
+const logger = require("./logger");
 
-// request =>> middleware => response
+// instead of pasing the middleware (logger) to all routs, we cn use the use() method like below
+// use() must be placed above all route methods in the code
+app.use(logger);
 
-// we create a middleware
-const logger = (request, response, next) => {
-  const method = request.method;
-  const url = request.url;
-  const time = new Date().getFullYear();
+app.get(
+  "/",
+  /* logger, */ (request, response) => {
+    response.send("Home page");
+  }
+);
 
-  console.log(method, url, time);
+app.get(
+  "/about",
+  /*  logger, */ (request, response) => {
+    response.send("About page");
+  }
+);
 
-  // we either finish the logic inside the middleware like bellow, sending our response
-  // response.send("Testing middleware");
-
-  // or we use the next method that will allow the next method to send the response
-  next();
-};
-
-app.get("/", logger, (request, response) => {
-  response.send("Home page");
-});
-
-app.get("/about", (request, response) => {
-  response.send("About page");
-});
+app.get(
+  "/api/products",
+  /*  logger, */ (request, response) => {
+    response.send("Products page");
+  }
+);
+app.get(
+  "/api/items",
+  /* logger, */ (request, response) => {
+    response.send("Items page");
+  }
+);
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000...");
