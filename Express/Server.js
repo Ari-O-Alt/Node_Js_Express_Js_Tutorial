@@ -53,9 +53,33 @@ app.get("/api/products/:productId/reviews/:reviewId", (request, response) => {
   response.send("Just a placeholder!");
 });
 
-app.get("/api/v1/query", (request, response) => {
+// return Hello world no matter the query params
+/* app.get("/api/v1/query", (request, response) => {
   console.log(request.query);
   response.send("Hello world!");
+}); */
+
+// using query params
+// the user can provide values for both, for one or for none
+// if the user provides a value for the search param only, we'll get all items which start with that specific letter/ or none
+// if the user provides a value for the limit param only, we'll get as many products as the limit param's value
+// if the user provides no values for the params, we get all products
+app.get("/api/v1/query", (request, response) => {
+  console.log(request.query);
+  const { search, limit } = request.query; // we destructure the query params from the request.query prop
+  let sortedProducts = [...products]; // if no query params are set, all the products are sent back
+
+  // if the user provided a value for the "search" param
+  if (search) {
+    sortedProducts = sortedProducts.filter((product) => {
+      return product.name.startsWith(search);
+    });
+  }
+  // if the user provided a value for the "limit" param
+  if (limit) {
+    sortedProducts = sortedProducts.slice(0, Number(limit));
+  }
+  response.status(200).json(sortedProducts);
 });
 
 app.listen(3000, () => {
